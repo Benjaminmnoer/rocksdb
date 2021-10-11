@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <regex>
+#include <algorithm>
 
 #include "rocksdb/db.h"
 #include "rocksdb/slice.h"
@@ -88,12 +89,12 @@ int main() {
 
   std::ofstream perf_log_file(kDBPath + "/perf.log");
   std::string perf_log = rocksdb::get_perf_context()->ToString();
-  perf_log_file << perf_log;
+  perf_log_file << replace(perf_log.begin(), perf_log.end(), ',', '\n');
   perf_log_file.close();
 
   std::ofstream io_log_file(kDBPath + "/io.log");
   std::string io_log = rocksdb::get_iostats_context()->ToString();
-  io_log_file << io_log;
+  io_log_file << replace(io_log.begin(), io_log.end(), ',', '\n');
   io_log_file.close();
 
   delete db;
