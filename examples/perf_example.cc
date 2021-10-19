@@ -18,15 +18,15 @@ std::string kDBPath = "/tmp/rocksdb_perf_example";
 #endif
 
 int main(int argc, char **argv) {
-  int n_repittions;
-  int n_requests;
+  unsigned long long  n_repittions;
+  unsigned long long  n_requests;
 
   if (argc < 2){
-    cout << "Enter more arguments" << "\n";
+    std::cout << "Enter more arguments" << "\n";
   }
 
-  n_repittions = argv[1];
-  n_requests = argv[2];
+  n_repittions = atoi(argv[1]);
+  n_requests = atoi(argv[2]);
 
   DB* db;
   Options options;

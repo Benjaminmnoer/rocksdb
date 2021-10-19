@@ -5,6 +5,6 @@ DB_DIR="/tmp/rocksdb_perf_example"
 mv $DB_DIR/io.log io.log
 mv $DB_DIR/perf.log perf.log
 
-python io.log io-condensed.log
-python perf.log perf-condensed.log
+python analyse_results.py io.log io-condensed.log
+python analyse_results.py perf.log perf-condensed.log
 
