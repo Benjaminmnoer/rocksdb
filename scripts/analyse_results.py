@@ -24,7 +24,6 @@ def read_file(input_file):
 
 def write_result(out_file):
     file = open(out_file, 'w')
-    print(stats)
 
     for key, value in stats.items():
         if int(value) > 0 or white_listed(key):

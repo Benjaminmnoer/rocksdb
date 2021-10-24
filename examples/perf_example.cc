@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
   Status s = DB::Open(options, kDBPath, &db);
   assert(s.ok());
 
-  rocksdb::SetPerfLevel(rocksdb::PerfLevel::kEnableTimeExceptForMutex);
+  rocksdb::SetPerfLevel(rocksdb::PerfLevel::kEnableTime);
 
   rocksdb::get_perf_context()->Reset();
   rocksdb::get_iostats_context()->Reset();
@@ -49,14 +49,6 @@ int main(int argc, char **argv) {
   {
     s = db->Put(WriteOptions(), "key" + i, "value" + i);
     assert(s.ok());
-  }
-    
-  std::string value;
-  for (size_t i = 0; i < n_requests; i++)
-  {
-    s = db->Get(ReadOptions(), "key" + i, &value);
-    assert(s.ok());
-    assert(value == ("value" + i));
   }
 
   std::ofstream perf_log_file(kDBPath + "/perf.log");
