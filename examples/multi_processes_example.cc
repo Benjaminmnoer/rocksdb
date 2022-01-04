@@ -49,9 +49,9 @@ using ROCKSDB_NAMESPACE::Slice;
 using ROCKSDB_NAMESPACE::Status;
 using ROCKSDB_NAMESPACE::WriteOptions;
 
-const std::string kDBPath = "/tmp/rocksdb_multi_processes_example";
+const std::string kDBPath = "/home/benjaminmnoer25/rocksdb/dbs/rocksdb_multi_processes_example";
 const std::string kPrimaryStatusFile =
-    "/tmp/rocksdb_multi_processes_example_primary_status";
+    "/home/benjaminmnoer25/rocksdb/dbs/rocksdb_multi_processes_example_primary_status";
 const uint64_t kMaxKey = 600000;
 const size_t kMaxValueLength = 256;
 const size_t kNumKeysPerFlush = 1000;

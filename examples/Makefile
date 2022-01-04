@@ -12,6 +12,7 @@ ifneq ($(USE_RTTI), 1)
 	CXXFLAGS += -fno-rtti
 endif
 
+CXXFLAGS += -g
 CFLAGS += -Wstrict-prototypes
 
 .PHONY: clean librocksdb

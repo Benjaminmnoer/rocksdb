@@ -16,7 +16,7 @@ using namespace ROCKSDB_NAMESPACE;
 #if defined(OS_WIN)
 std::string kDBPath = "C:\\Windows\\TEMP\\rocksdb_transaction_example";
 #else
-std::string kDBPath = "/tmp/rocksdb_transaction_example";
+std::string kDBPath = "/home/benjaminmnoer25/rocksdb/dbs/rocksdb_transaction_example";
 #endif
 
 int main() {

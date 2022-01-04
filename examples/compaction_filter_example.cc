@@ -58,7 +58,7 @@ class MyFilter : public ROCKSDB_NAMESPACE::CompactionFilter {
 std::string kDBPath = "C:\\Windows\\TEMP\\rocksmergetest";
 std::string kRemoveDirCommand = "rmdir /Q /S ";
 #else
-std::string kDBPath = "/tmp/rocksmergetest";
+std::string kDBPath = "/home/benjaminmnoer25/rocksdb/dbs/rocksmergetest";
 std::string kRemoveDirCommand = "rm -rf ";
 #endif
 

@@ -23,7 +23,7 @@ using namespace ROCKSDB_NAMESPACE;
 #if defined(OS_WIN)
 std::string kDBPath = "C:\\Windows\\TEMP\\rocksdb_options_file_example";
 #else
-std::string kDBPath = "/tmp/rocksdb_options_file_example";
+std::string kDBPath = "/home/benjaminmnoer25/rocksdb/dbs/rocksdb_options_file_example";
 #endif
 
 namespace {
