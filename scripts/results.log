@@ -1,0 +1,24 @@
+Experiment for number of threads: 1
+db_mutex_lock_nanos: avg = 2418738.4, std_dev = 53364.18, std_err = 23865.19
+key_lock_wait_time: avg = 0, std_dev = 0.0, std_err = 0.0
+key_lock_wait_count: avg = 0, std_dev = 0.0, std_err = 0.0
+Experiment for number of threads: 2
+db_mutex_lock_nanos: avg = 4501269.6, std_dev = 82213.19, std_err = 36766.86
+key_lock_wait_time: avg = 0, std_dev = 0.0, std_err = 0.0
+key_lock_wait_count: avg = 0, std_dev = 0.0, std_err = 0.0
+Experiment for number of threads: 4
+db_mutex_lock_nanos: avg = 5876462.8, std_dev = 293016.12, std_err = 131040.79
+key_lock_wait_time: avg = 0, std_dev = 0.0, std_err = 0.0
+key_lock_wait_count: avg = 0, std_dev = 0.0, std_err = 0.0
+Experiment for number of threads: 8
+db_mutex_lock_nanos: avg = 8004799.8, std_dev = 314220.49, std_err = 140523.67
+key_lock_wait_time: avg = 0, std_dev = 0.0, std_err = 0.0
+key_lock_wait_count: avg = 0, std_dev = 0.0, std_err = 0.0
+Experiment for number of threads: 16
+db_mutex_lock_nanos: avg = 17872154.6, std_dev = 2836434.53, std_err = 1268492.09
+key_lock_wait_time: avg = 0, std_dev = 0.0, std_err = 0.0
+key_lock_wait_count: avg = 0, std_dev = 0.0, std_err = 0.0
+Experiment for number of threads: 32
+db_mutex_lock_nanos: avg = 16024872.6, std_dev = 1757115.1, std_err = 785805.76
+key_lock_wait_time: avg = 0, std_dev = 0.0, std_err = 0.0
+key_lock_wait_count: avg = 0, std_dev = 0.0, std_err = 0.0

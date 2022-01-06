@@ -26,6 +26,46 @@ long db_mutex_lock_nanos = 0;
 long key_lock_wait_time = 0;
 long key_lock_wait_count = 0;
 
+inline bool IsLittleEndian() {
+  uint32_t x = 1;
+  return *reinterpret_cast<char*>(&x) != 0;
+}
+
+static std::string Key(uint64_t k) {
+  std::string ret;
+  if (IsLittleEndian()) {
+    ret.append(reinterpret_cast<char*>(&k), sizeof(k));
+  } else {
+    char buf[sizeof(k)];
+    buf[0] = k & 0xff;
+    buf[1] = (k >> 8) & 0xff;
+    buf[2] = (k >> 16) & 0xff;
+    buf[3] = (k >> 24) & 0xff;
+    buf[4] = (k >> 32) & 0xff;
+    buf[5] = (k >> 40) & 0xff;
+    buf[6] = (k >> 48) & 0xff;
+    buf[7] = (k >> 56) & 0xff;
+    ret.append(buf, sizeof(k));
+  }
+  size_t i = 0, j = ret.size() - 1;
+  while (i < j) {
+    char tmp = ret[i];
+    ret[i] = ret[j];
+    ret[j] = tmp;
+    ++i;
+    --j;
+  }
+  return ret;
+}
+
+static Slice GenerateRandomValue(const size_t max_length, char scratch[]) {
+  size_t sz = 1 + (std::rand() % max_length);
+  int rnd = std::rand();
+  for (size_t i = 0; i != sz; ++i) {
+    scratch[i] = static_cast<char>(rnd ^ i);
+  }
+  return Slice(scratch, sz);
+}
 
 void put(int thread_id, long requests, DB* db){
   Status s;
@@ -36,15 +76,19 @@ void put(int thread_id, long requests, DB* db){
   rocksdb::get_perf_context()->Reset();
   rocksdb::get_iostats_context()->Reset();
 
+  char val_buf[256] = {0};
   for (long i = 0; i < requests; i++)
   {
-    s = db->Put(WriteOptions(), "key" + (thread_id * requests) + i, "dummy value");
+    Slice key = Key((thread_id * requests) + i);
+    Slice value = GenerateRandomValue(256, val_buf);
+    s = db->Put(WriteOptions(), key, "dummy value");
     assert(s.ok());
   }
 
   std::string value;
   for (int j = 0; j < requests; ++j){
-    s = db->Get(ReadOptions(), "key" + (thread_id * requests) + j, &value);
+    auto key = Key((thread_id * requests) + j);
+    s = db->Get(ReadOptions(), key, &value);
     assert(s.ok());
     assert(value == "dummy value");
     value = "";
