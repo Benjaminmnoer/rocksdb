@@ -15,3 +15,4 @@ for t in ${N_THREADS[@]}; do
     done
 done
 
+python analyse_results.py results.log

@@ -24,9 +24,9 @@ def read_files(n_threads):
             kv = list(map(lambda x: x.strip(), line.split(":")))
             # print("kv0: {}, kv1: {}".format(kv[0], kv[1]))
             if kv[0] in stats.keys():
-                stats[kv[0]].append(int(kv[1]))
+                stats[kv[0]].append(int(kv[1]) / 1_000_000)
             else:
-                stats[kv[0]] = [ int(kv[1]) ]
+                stats[kv[0]] = [ int(kv[1]) / 1_000_000 ]
     
     results[n_threads] = stats
 

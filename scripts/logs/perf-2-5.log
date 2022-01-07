@@ -1,3 +1,3 @@
-db_mutex_lock_nanos: 4507165
+db_mutex_lock_nanos: 4828629
 key_lock_wait_time: 0
 key_lock_wait_count: 0
