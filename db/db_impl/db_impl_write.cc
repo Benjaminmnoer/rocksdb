@@ -217,6 +217,7 @@ Status DBImpl::WriteImpl(const WriteOptions& write_options,
   uint64_t last_sequence = kMaxSequenceNumber;
 
   mutex_.Lock();
+  // PERF_TIMER_START(key_lock_wait_time);
 
   bool need_log_sync = write_options.sync;
   bool need_log_dir_sync = need_log_sync && !log_dir_synced_;
@@ -240,6 +241,7 @@ Status DBImpl::WriteImpl(const WriteOptions& write_options,
   }
   log::Writer* log_writer = logs_.back().writer;
 
+  // PERF_TIMER_STOP(key_lock_wait_time);
   mutex_.Unlock();
 
   // Add to log and apply to memtable.  We can release the lock
@@ -427,11 +429,13 @@ Status DBImpl::WriteImpl(const WriteOptions& write_options,
 
   if (need_log_sync) {
     mutex_.Lock();
+    // PERF_TIMER_START(key_lock_wait_time);
     if (status.ok()) {
       status = MarkLogsSynced(logfile_number_, need_log_dir_sync);
     } else {
       MarkLogsNotSynced(logfile_number_);
     }
+    // PERF_TIMER_STOP(key_lock_wait_time);
     mutex_.Unlock();
     // Requesting sync with two_write_queues_ is expected to be very rare. We
     // hence provide a simple implementation that is not necessarily efficient.

@@ -81,7 +81,7 @@ void put(int thread_id, long requests, DB* db){
   {
     Slice key = Key((thread_id * requests) + i);
     Slice value = GenerateRandomValue(256, val_buf);
-    s = db->Put(WriteOptions(), key, "dummy value");
+    s = db->Put(WriteOptions(), key, value);
     assert(s.ok());
   }
 
@@ -90,8 +90,6 @@ void put(int thread_id, long requests, DB* db){
     auto key = Key((thread_id * requests) + j);
     s = db->Get(ReadOptions(), key, &value);
     assert(s.ok());
-    assert(value == "dummy value");
-    value = "";
   }
 
   auto perf_context = rocksdb::get_perf_context();
